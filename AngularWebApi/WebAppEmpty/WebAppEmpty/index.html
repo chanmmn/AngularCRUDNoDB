@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+
+<script src="angular.js"></script>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+
+    <div ng-app="myApp" ng-controller="myCtrl">
+
+        <p>Today's welcome message is:</p>
+        <!--<h1>{{myWelcome}}</h1>-->
+
+        <table>
+            <tr ng-model="employees">
+                <td>
+                    {{employees.Emp_Id}}
+                </td>
+                <td>
+                    {{employees.Emp_Name}}
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function ($scope, $http) {
+            $http({
+                method: "GET",
+                url: "http://localhost:55398/api/values"
+            }).then(function (response) {
+                $scope.employees = response.data;
+                ///$scope.myWelcome = response.data;
+                //console.log($scope.myWelcome);
+            });
+        });
+    </script>
+</body>
+</html>
+<!--https://medium.com/@dtkatz/3-ways-to-fix-the-cors-error-and-how-access-control-allow-origin-works-d97d55946d9-->
